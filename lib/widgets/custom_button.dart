@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key});
+  CustomButton({super.key, required this.title});
+
+  String title;
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +14,10 @@ class CustomButton extends StatelessWidget {
       ),
       width: double.infinity,
       height: 60,
-      child: const Center(
+      child: Center(
         child: Text(
-          "Sign In",
-          style: TextStyle(color: Color(0xff2b475e)),
+          title,
+          style: const TextStyle(color: Color(0xff2b475e)),
         ),
       ),
     );
