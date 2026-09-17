@@ -16,7 +16,7 @@ class ChatApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         "LoginView": (context) => const LoginView(),
-        "RegisterView": (context) => const RegisterView(),
+        RegisterView.id: (context) => RegisterView(),
       },
       initialRoute: "LoginView",
     );
