@@ -13,22 +13,27 @@ class LoginView extends StatelessWidget {
       backgroundColor: kPrimaryColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
+        child: ListView(
           children: [
-            const Spacer(
-              flex: 2,
+            const SizedBox(
+              height: 125,
             ),
-            Image.asset("assets/images/scholar.png"),
-            const Text(
-              "Welcome to Chat App",
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-                fontFamily: "pacifico",
-              ),
+            Image.asset("assets/images/scholar.png", height: 100),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Welcome to Chat App",
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Colors.white,
+                    fontFamily: "pacifico",
+                  ),
+                ),
+              ],
             ),
-            const Spacer(
-              flex: 2,
+            const SizedBox(
+              height: 50,
             ),
             const Row(
               children: [
@@ -77,9 +82,6 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-            const Spacer(
-              flex: 3,
             ),
           ],
         ),
