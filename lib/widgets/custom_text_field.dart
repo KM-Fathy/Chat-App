@@ -9,7 +9,13 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (data) {
+        if (data!.isEmpty) {
+          return "Field can't be empty";
+        }
+      },
+      style: const TextStyle(color: Colors.white),
       onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
