@@ -1,3 +1,5 @@
+import 'package:chat_app/constants.dart';
+import 'package:chat_app/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
 
 class ChatView extends StatelessWidget {
@@ -5,6 +7,27 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: kPrimaryColor,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(kLogo, height: 50),
+            const Text(
+              "Chat",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        centerTitle: true,
+      ),
+      backgroundColor: Colors.white,
+      body: const ChatBubble(),
+    );
   }
 }
