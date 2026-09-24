@@ -1,5 +1,6 @@
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
+import 'package:chat_app/views/chat_view.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -98,7 +99,7 @@ class _RegisterViewState extends State<RegisterView> {
                       setState(() {});
                       try {
                         await registerUser();
-                        showSnackBar(context, "Successfully registered");
+                        Navigator.pushNamed(context, ChatView.id);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           showSnackBar(

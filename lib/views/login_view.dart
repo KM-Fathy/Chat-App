@@ -1,5 +1,6 @@
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
+import 'package:chat_app/views/chat_view.dart';
 import 'package:chat_app/views/register_view.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
@@ -9,6 +10,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginView extends StatefulWidget {
   LoginView({super.key});
+
+  static String id = "LoginView";
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -94,7 +97,7 @@ class _LoginViewState extends State<LoginView> {
                       setState(() {});
                       try {
                         await signInUser();
-                        showSnackBar(context, "Successfully signed in");
+                        Navigator.pushNamed(context, ChatView.id);
                       } on FirebaseAuthException catch (e) {
                         print("error: ${e.code}");
                         if (e.code == 'user-not-found') {
