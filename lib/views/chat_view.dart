@@ -27,7 +27,11 @@ class ChatView extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: const ChatBubble(),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return ChatBubble();
+        },
+      ),
     );
   }
 }
