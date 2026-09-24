@@ -1,12 +1,16 @@
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterView extends StatelessWidget {
   RegisterView({super.key});
 
   static String id = "RegisterView";
+
+  String? email;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -53,15 +57,57 @@ class RegisterView extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            CustomTextField(hintText: "Email"),
+            CustomTextField(
+              hintText: "Email",
+              onChanged: (data) {
+                email = data;
+              },
+            ),
             const SizedBox(
               height: 10,
             ),
-            CustomTextField(hintText: "Password"),
+            CustomTextField(
+              hintText: "Password",
+              onChanged: (data) {
+                password = data;
+              },
+            ),
             const SizedBox(
               height: 20,
             ),
             CustomButton(
+              onTap: () async {
+                try {
+                  UserCredential user = await FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                        email: email!,
+                        password: password!,
+                      );
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'weak-password') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("The password provided is too weak."),
+                      ),
+                    );
+                  } else if (e.code == 'email-already-in-use') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "The account already exists for that email.",
+                        ),
+                      ),
+                    );
+                  }
+                }
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      "Successfully Registered",
+                    ),
+                  ),
+                );
+              },
               title: "Register",
             ),
             const SizedBox(
