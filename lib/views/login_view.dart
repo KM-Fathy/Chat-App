@@ -41,7 +41,7 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(
                   height: 125,
                 ),
-                Image.asset("assets/images/scholar.png", height: 100),
+                Image.asset(kLogo, height: 100),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
