@@ -82,9 +82,24 @@ class ChatView extends StatelessWidget {
                       },
                       decoration: InputDecoration(
                         hintText: "Send a message...",
-                        suffixIcon: const Icon(
-                          Icons.send,
-                          color: kPrimaryColor,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            messages.add({
+                              "message": controller.text,
+                              "createdAt": DateTime.now(),
+                              "id": email,
+                            });
+                            controller.clear();
+                            _controller.animateTo(
+                              0,
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.easeOut,
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.send,
+                            color: kPrimaryColor,
+                          ),
                         ),
                         border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -103,7 +118,32 @@ class ChatView extends StatelessWidget {
             ),
           );
         } else {
-          return const Text("Loading...");
+          return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: kPrimaryColor,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(kLogo, height: 50),
+                  const Text(
+                    "Chat",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              centerTitle: true,
+            ),
+            backgroundColor: Colors.white,
+            body: const Center(
+              child: CircularProgressIndicator(
+                color: kPrimaryColor,
+              ),
+            ),
+          );
         }
       },
     );
