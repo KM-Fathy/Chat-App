@@ -13,10 +13,12 @@ class ChatView extends StatelessWidget {
 
   TextEditingController controller = TextEditingController();
 
+  final _controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: messages.orderBy(kCreatedAt).snapshots(),
+      stream: messages.orderBy(kCreatedAt, descending: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<MessageModel> messagesList = [];
@@ -47,6 +49,8 @@ class ChatView extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
+                    reverse: true,
+                    controller: _controller,
                     itemCount: messagesList.length,
                     itemBuilder: (context, index) {
                       return ChatBubble(
@@ -66,6 +70,11 @@ class ChatView extends StatelessWidget {
                           "createdAt": DateTime.now(),
                         });
                         controller.clear();
+                        _controller.animateTo(
+                          0,
+                          duration: const Duration(seconds: 1),
+                          curve: Curves.easeOut,
+                        );
                       },
                       decoration: InputDecoration(
                         hintText: "Send a message...",
