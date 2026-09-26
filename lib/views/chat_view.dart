@@ -17,6 +17,7 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var email = ModalRoute.of(context)!.settings.arguments;
     return StreamBuilder<QuerySnapshot>(
       stream: messages.orderBy(kCreatedAt, descending: true).snapshots(),
       builder: (context, snapshot) {
@@ -68,6 +69,7 @@ class ChatView extends StatelessWidget {
                         messages.add({
                           "message": data,
                           "createdAt": DateTime.now(),
+                          "id": email,
                         });
                         controller.clear();
                         _controller.animateTo(

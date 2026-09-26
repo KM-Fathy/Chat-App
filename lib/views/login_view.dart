@@ -97,7 +97,11 @@ class _LoginViewState extends State<LoginView> {
                       setState(() {});
                       try {
                         await signInUser();
-                        Navigator.pushNamed(context, ChatView.id);
+                        Navigator.pushNamed(
+                          context,
+                          ChatView.id,
+                          arguments: email,
+                        );
                       } on FirebaseAuthException catch (e) {
                         print("error: ${e.code}");
                         if (e.code == 'user-not-found') {
