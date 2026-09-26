@@ -14,67 +14,76 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: kPrimaryColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(kLogo, height: 50),
-            const Text(
-              "Chat",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+    return FutureBuilder<QuerySnapshot>(
+      future: messages.get(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: kPrimaryColor,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(kLogo, height: 50),
+                  const Text(
+                    "Chat",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
+              centerTitle: true,
             ),
-          ],
-        ),
-        centerTitle: true,
-      ),
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return const ChatBubble();
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SafeArea(
-              child: TextField(
-                controller: controller,
-                onSubmitted: (data) {
-                  messages.add({
-                    "message": data,
-                  });
-                  controller.clear();
-                },
-                decoration: InputDecoration(
-                  hintText: "Send a message...",
-                  suffixIcon: const Icon(
-                    Icons.send,
-                    color: kPrimaryColor,
+            backgroundColor: Colors.white,
+            body: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return const ChatBubble();
+                    },
                   ),
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: const BorderSide(
-                      color: kPrimaryColor,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SafeArea(
+                    child: TextField(
+                      controller: controller,
+                      onSubmitted: (data) {
+                        messages.add({
+                          "message": data,
+                        });
+                        controller.clear();
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Send a message...",
+                        suffixIcon: const Icon(
+                          Icons.send,
+                          color: kPrimaryColor,
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(
+                            color: kPrimaryColor,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ),
-        ],
-      ),
+          );
+        } else {
+          return Text("Loading...");
+        }
+      },
     );
   }
 }
