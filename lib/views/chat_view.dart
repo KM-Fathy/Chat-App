@@ -54,9 +54,11 @@ class ChatView extends StatelessWidget {
                     controller: _controller,
                     itemCount: messagesList.length,
                     itemBuilder: (context, index) {
-                      return ChatBubble(
-                        message: messagesList[index],
-                      );
+                      return messagesList[index].id == email
+                          ? ChatBubble(
+                              message: messagesList[index],
+                            )
+                          : OppositeChatBubble(message: messagesList[index]);
                     },
                   ),
                 ),
