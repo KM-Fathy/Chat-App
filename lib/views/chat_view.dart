@@ -1,4 +1,5 @@
 import 'package:chat_app/constants.dart';
+import 'package:chat_app/models/message_model.dart';
 import 'package:chat_app/widgets/chat_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,10 @@ class ChatView extends StatelessWidget {
       future: messages.get(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          List<MessageModel> messagesList = [];
+          for (int i = 0; i < snapshot.data!.docs.length; i++) {
+            messagesList.add(MessageModel.fromJson(snapshot.data!.docs[i]));
+          }
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -42,8 +47,11 @@ class ChatView extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
+                    itemCount: messagesList.length,
                     itemBuilder: (context, index) {
-                      return const ChatBubble();
+                      return ChatBubble(
+                        message: messagesList[index],
+                      );
                     },
                   ),
                 ),
@@ -81,7 +89,7 @@ class ChatView extends StatelessWidget {
             ),
           );
         } else {
-          return Text("Loading...");
+          return const Text("Loading...");
         }
       },
     );
