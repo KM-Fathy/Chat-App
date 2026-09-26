@@ -82,6 +82,7 @@ class _LoginViewState extends State<LoginView> {
                   height: 10,
                 ),
                 CustomTextFormField(
+                  obscureText: true,
                   hintText: "Password",
                   onChanged: (data) {
                     password = data;

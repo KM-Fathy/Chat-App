@@ -84,6 +84,7 @@ class _RegisterViewState extends State<RegisterView> {
                   height: 10,
                 ),
                 CustomTextFormField(
+                  obscureText: true,
                   hintText: "Password",
                   onChanged: (data) {
                     password = data;
@@ -99,7 +100,11 @@ class _RegisterViewState extends State<RegisterView> {
                       setState(() {});
                       try {
                         await registerUser();
-                        Navigator.pushNamed(context, ChatView.id);
+                        Navigator.pushNamed(
+                          context,
+                          ChatView.id,
+                          arguments: email,
+                        );
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           showSnackBar(
