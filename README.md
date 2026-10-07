@@ -63,7 +63,7 @@ lib/
 
 2. Navigate to the project directory:
    ```bash
-   cd your-repo-name
+   cd Chat-App
    ```
 
 3. Install the dependencies:
